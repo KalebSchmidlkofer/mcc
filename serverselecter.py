@@ -107,7 +107,7 @@ try:
 
         f= open(f'{WD}eula.txt',"a")
         f.write('''
-# Made with Server Creator by Kaleb Schmidlkofer on github(https://github.com/kalebschmidlkofer)
+# Made with Minecraft Server Creator by Kaleb Schmidlkofer on github(https://github.com/kalebschmidlkofer)
 eula=true
             ''')
         StartRam = input('\nHow Much Ram Would you Like to Allocate to server in GB (ex: 13)')
@@ -118,7 +118,7 @@ eula=true
         elif platform == 'darwin':
             f= open(f'{WD}start.sh', 'a')
             f.write(f'''
-# Made with Server Creator by Kaleb Schmidlkofer on github(https://github.com/kalebschmidlkofer)
+# Made with Minecraft Server Creator by Kaleb Schmidlkofer on github(https://github.com/kalebschmidlkofer)
 
 java -Xmx1024M -jar craftbukkit.jar -o true
 
@@ -127,7 +127,7 @@ java -Xmx1024M -jar craftbukkit.jar -o true
         elif platform == 'win32':
             f= open(f'{WD}start.bat', 'a')
             f.write(f'''
-# Made with Server Creator by Kaleb Schmidlkofer on github(https://github.com/kalebschmidlkofer)
+# Made with Minecraft Server Creator by Kaleb Schmidlkofer on github(https://github.com/kalebschmidlkofer)
 
 @echo off
 title Server Console
