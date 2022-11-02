@@ -105,12 +105,14 @@ try:
             print('3')
             wget.download(f'https://serverjars.com/api/fetchJar/servers/{Software}/{Version}', out=WD)
 
+        StartRam = input('\nHow Much Ram Would you Like to Allocate to server in GB (ex: 13)')
+        
         f= open(f'{WD}eula.txt',"a")
         f.write('''
 # Made with Minecraft Server Creator by Kaleb Schmidlkofer on github(https://github.com/kalebschmidlkofer)
 eula=true
             ''')
-        StartRam = input('\nHow Much Ram Would you Like to Allocate to server in GB (ex: 13)')
+        
         if platform == 'Linux' or platform == 'linux' or platform == 'linux2':
             f= open(f'{WD}start.sh', 'a')
             f.write(f'java -Xmx{StartRam}G -Xms{StartRam}G -jar {Software}-{Version}.jar --nogui')
