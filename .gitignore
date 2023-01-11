@@ -1,5 +1,4 @@
-Pipfile
-Pipfile.lock
 progress.py
 spigotapi/
 mccVar/__pycache__/
+.env/
