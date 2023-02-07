@@ -26,7 +26,7 @@ def startsh(ram, version, jartype):
   f.write('#!/bin/bash\n')
   f.write(f'java -Xmx{ram}G -Xms{ram}G -jar {jartype}-{version}.jar --nogui -o true')
   st = sts('start.sh')
-  chmod('start.sh', st.st_mode)
+  chmod(f'{WD}start.sh', 0o755)
 
 def latestjar(type, category):
   url = f"{serverjar}/api/fetchLatest/{type}/{category}"
