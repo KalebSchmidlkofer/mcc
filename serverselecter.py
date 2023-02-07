@@ -6,10 +6,6 @@ import click
 from os import getcwd, chmod, stat as sts
 from tqdm import tqdm
 import sys
-class NaturalOrderGroup(click.Group):
-  def list_commands(self, ctx):
-      return self.commands.keys()       
-
 startscript = '''
 #!/bin/bash
 java -Xmx{StartRam}G -jar {Software}-{Version}.jar -o true
