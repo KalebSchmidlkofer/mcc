@@ -5,7 +5,6 @@ import json
 import click
 from os import getcwd, chmod, stat as sts
 from tqdm import tqdm
-import time
 import sys
 class NaturalOrderGroup(click.Group):
   def list_commands(self, ctx):
