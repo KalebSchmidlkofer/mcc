@@ -26,7 +26,7 @@ def startsh(ram, version, jartype):
   f.write('#!/bin/bash\n')
   f.write(f'java -Xmx{ram}G -Xms{ram}G -jar {jartype}-{version}.jar --nogui -o true')
   st = sts('start.sh')
-  chmod('start.sh', st.st_mode)
+  chmod(f'{WD}start.sh', 0o755)
 
 def latestjar(type, category):
   url = f"{serverjar}/api/fetchLatest/{type}/{category}"
@@ -74,88 +74,116 @@ def findjar(type, category, version=None):
     filename=data["response"]["file"]
     return filename
 
-@app.command()
+@app.command('vanilla')
+def vanilla(
+  version: str = typer.Argument(default=findjar('vanilla', 'vanilla')),
+  ram: str = typer.Argument(default='14'),
+  latest: bool = typer.Option(False, '-l', '--latest'),
+):
+  servertype='vanilla'
+  apilocation='vanilla'
+  if latest:
+    print(findjar(apilocation, servertype))
+  else:
+    latestjardwnld(apilocation, servertype, version)
+    startsh(ram, version, apilocation)
+
+@app.command('snapshot')
+def snapshot(
+  version: str = typer.Argument(default=findjar('vanillia', 'snapshot')),
+  ram: str = typer.Argument(default='14'),
+  latest: bool = typer.Option(False, '-l', '--latest'),
+):
+  servertype='snapshot'
+  apilocation='vanilla'
+  if latest:
+    print(findjar(apilocation, servertype))
+  else:
+    latestjardwnld(apilocation, servertype, version)
+    startsh(ram, version, servertype)
+
+@app.command('purpur')
 def purpur(
   version: str = typer.Argument(default=findjar('servers', 'purpur')),
   ram: str = typer.Argument(default='14'),
   latest: bool = typer.Option(False, '-l', '--latest'),
 ):
   servertype='purpur'
+  apilocation='servers'
   if latest:
-    print(findjar('servers', servertype))
-    # latestjardwnld("servers", servertype)
+    print(findjar(apilocation, servertype))
   else:
-    latestjardwnld("servers", servertype, version)
-    startsh(ram, version, 'purpur')
+    latestjardwnld(apilocation, servertype, version)
+    startsh(ram, version, servertype)
 
-@app.command()
+@app.command('paper')
 def paper(
   version: str = typer.Argument(default=findjar('servers', 'paper')),
   ram: str = typer.Argument(default='14'),
   latest: bool = typer.Option(False, '-l', '--latest'),
 ):
   servertype='paper'
+  apilocation='servers'
   if latest:
-    print(findjar('servers', servertype))
-    # latestjardwnld("servers", servertype)
+    print(findjar(apilocation, servertype))
   else:
-    latestjardwnld("servers", servertype, version)
+    latestjardwnld(apilocation, servertype, version)
     startsh(ram, version, servertype)
 
-@app.command()
+@app.command('bukkit')
 def bukkit(
   version: str = typer.Argument(default=findjar('servers', 'bukkit')),
   ram: str = typer.Argument(default='14'),
   latest: bool = typer.Option(False, '-l', '--latest'),
 ):
   servertype='bukkit'
+  apilocation='servers'
   if latest:
-    print(findjar('servers', servertype))
-    # latestjardwnld("servers", servertype)
+    print(findjar(apilocation, servertype))
   else:
-    latestjardwnld("servers", servertype, version)
+    latestjardwnld(apilocation, servertype, version)
     startsh(ram, version, servertype)
 
-@app.command()
+@app.command('spigot')
 def spigot(
   version: str = typer.Argument(default=findjar('servers', 'spigot')),
   ram: str = typer.Argument(default='14'),
   latest: bool = typer.Option(False, '-l', '--latest'),
 ):
   servertype='spigot'
+  apilocation='servers'
   if latest:
-    print(findjar('servers', servertype))
-    # latestjardwnld("servers", servertype)
+    print(findjar(apilocation, servertype))
   else:
-    latestjardwnld("servers", servertype, version)
+    latestjardwnld(apilocation, servertype, version)
     startsh(ram, version, servertype)
 
-@app.command()
+@app.command('tuinity')
 def tuinity(
   version: str = typer.Argument(default=findjar('servers', 'tuinity')),
   ram: str = typer.Argument(default='14'),
   latest: bool = typer.Option(False, '-l', '--latest'),
 ):
   servertype='tuinity'
+  apilocation='servers'
   if latest:
-    print(findjar('servers', servertype))
-    # latestjardwnld("servers", servertype)
+    print(findjar(apilocation, servertype))
   else:
-    latestjardwnld("servers", servertype, version)
+    latestjardwnld(apilocation, servertype, version)
     startsh(ram, version, servertype)
 
-@app.command()
+@app.command('sponge')
 def sponge(
   version: str = typer.Argument(default=findjar('servers', 'sponge')),
   ram: str = typer.Argument(default='14'),
   latest: bool = typer.Option(False, '-l', '--latest'),
 ):
   servertype='sponge'
+  apilocation='servers'
   if latest:
-    print(findjar('servers', servertype))
-    # latestjardwnld("servers", servertype)
+    print(findjar(apilocation, servertype))
   else:
-    latestjardwnld("servers", servertype, version)
+    latestjardwnld(apilocation, servertype, version)
     startsh(ram, version, servertype)
 
 

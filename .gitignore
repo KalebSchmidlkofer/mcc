@@ -2,4 +2,5 @@ progress.py
 spigotapi/
 mccVar/__pycache__/
 .env/
-
+.mcc/
+.vscode/
