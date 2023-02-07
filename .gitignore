@@ -4,3 +4,4 @@ mccVar/__pycache__/
 .env/
 .mcc/
 .vscode/
+.venv
