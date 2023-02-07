@@ -1,9 +1,3 @@
-<<<<<<< HEAD
-.vscode/
-.mcc/
-.venv/
-serverselecter.py
-=======
 progress.py
 spigotapi/
 mccVar/__pycache__/
@@ -11,4 +5,3 @@ mccVar/__pycache__/
 .mcc/
 .vscode/
 .venv
->>>>>>> 9e9b1b9d66f9ca70cd864be449818452618cb911
