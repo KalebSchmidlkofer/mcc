@@ -1,2 +1,4 @@
 .vscode/
 .mcc/
+.venv/
+serverselecter.py
