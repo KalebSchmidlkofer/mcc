@@ -89,7 +89,6 @@ def findjar(category, type, version=None):
       filename=data["response"]["file"]
       return filename
 
-
 @app.command('vanilla')
 def vanilla(
   version: str = typer.Argument(default=findjar('vanilla', 'vanilla')),
@@ -106,7 +105,7 @@ def vanilla(
 
 @app.command('snapshot')
 def snapshot(
-  version: str = typer.Argument(default=findjar('vanillia', 'snapshot')),
+  version: str = typer.Argument(default=findjar('vanilla', 'snapshot')),
   ram: str = typer.Argument(default='14'),
   latest: bool = typer.Option(False, '-l', '--latest'),
 ):
