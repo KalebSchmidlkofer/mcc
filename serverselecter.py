@@ -20,6 +20,11 @@ class ServerJars:
   def __init__(self):
     self._apie='https://serverjars.com/api'
 
+  def input_data(self, category, software, version):
+    self.category=category
+    self.software=software
+    self.version=version
+    
   async def queue_types(self):
     start=time.time()
     getrequest = f'{self._apie}/fetchTypes'
@@ -46,7 +51,10 @@ debug_init(True, False)
 async def main(jars:ServerJars):
   print(jars.fetchTypes)
   category = input('Category: ')
+  print(jars.fetchTypes[category])
+  software = input('Software: ')
   version = input('Mc Version (Leave Blank for latest): ')
+  jars.input_data(category, software, version)
   # print(await jars.jar_types())
   print('done')
 
