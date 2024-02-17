@@ -47,12 +47,31 @@ class ServerJars:
     else:
       getrequest = f'fetchDetails/{jartype}/{category}/{version}'
 
+  async def fetch_jar(self, category, software, version=None):
+    if version == None:
+      getrequest = f'{self._apie}/{category}/{software}'
+    else: 
+      getrequest = f'{self._apie}/{category}/{software}/{version}'
+
 debug_init(True, False)
 async def main(jars:ServerJars):
   print(jars.fetchTypes)
-  category = input('Category: ')
-  print(jars.fetchTypes[category])
-  software = input('Software: ')
+  while True:
+    category = input('Category: ')
+    try:
+      cat=jars.fetchTypes[category]
+      print(cat)
+      break
+    except KeyError:
+      logger.warning('Incorrect Category Type!')
+  while True:
+    software = input('Software: ')
+    try:
+      
+      break
+    except KeyError:
+      logger.warning('Incorrect Software Type!')
+      
   version = input('Mc Version (Leave Blank for latest): ')
   jars.input_data(category, software, version)
   # print(await jars.jar_types())
