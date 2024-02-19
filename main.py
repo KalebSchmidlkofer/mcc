@@ -3,9 +3,7 @@ import json
 from loguru import logger
 from sys import stderr
 import asyncio
-import cProfile
-from time import sleep
-import time
+from time import time
 
 def debug_init(trace, debug):
     logger.remove()
@@ -26,17 +24,19 @@ class ServerJars:
     self.version=version
     
   async def queue_types(self, category=None):
-    start=time.time()
+    start=time()
     getrequest = f'{self._apie}/fetchTypes'
     logger.trace(getrequest)
     response = await self.fetch(getrequest)
-    self.fetchTypes = response['response']
-    end=time.time()
+    self.fetchTypes = response
+    self.categories = list(response.keys())
+    end=time()
     logger.debug(f'Queue_types time: {end-start}')
 
   async def fetch(self, url):
     response = await asyncio.to_thread(requests.get, url)
-    return response.json()
+    r=response.json()
+    return r['response']
 
   async def jar_types(self, category=None):
     if category==None:
@@ -59,26 +59,28 @@ debug_init(True, False)
 
 
 async def main(jars:ServerJars):
-  print(jars.fetchTypes)
+  print(jars.categories)
   while True:
     category = input('Category: ')
     try:
       cat=jars.fetchTypes[category]
-      print(cat)
+      logger.info(cat)
       break
     except KeyError:
       logger.warning('Incorrect Category Type!')
   while True:
-    valid=jars.jar_types(category)
     software = input('Software: ')
     try:
+      if software in cat:
+        pass
+      else:
+        raise KeyError
       break
     except KeyError:
       logger.warning('Incorrect Software Type!')
       
   version = input('Mc Version (Leave Blank for latest): ')
   jars.input_data(category, software, version)
-  # print(await jars.jar_types())
   print('done')
 
 
