@@ -25,7 +25,7 @@ class ServerJars:
     self.software=software
     self.version=version
     
-  async def queue_types(self):
+  async def queue_types(self, category=None):
     start=time.time()
     getrequest = f'{self._apie}/fetchTypes'
     logger.trace(getrequest)
@@ -38,9 +38,11 @@ class ServerJars:
     response = await asyncio.to_thread(requests.get, url)
     return response.json()
 
-  async def jar_types(self):
-    return self.fetchTypes
-
+  async def jar_types(self, category=None):
+    if category==None:
+      return self.fetchTypes
+    else:
+      return self.fetchTypes[category]
   async def jar_details(self, jartype, category, version=None):
     if version is None:
       getrequest = f'fetchDetails/{jartype}/{category}'
@@ -54,6 +56,8 @@ class ServerJars:
       getrequest = f'{self._apie}/{category}/{software}/{version}'
 
 debug_init(True, False)
+
+
 async def main(jars:ServerJars):
   print(jars.fetchTypes)
   while True:
@@ -65,9 +69,9 @@ async def main(jars:ServerJars):
     except KeyError:
       logger.warning('Incorrect Category Type!')
   while True:
+    valid=jars.jar_types(category)
     software = input('Software: ')
     try:
-      
       break
     except KeyError:
       logger.warning('Incorrect Software Type!')
