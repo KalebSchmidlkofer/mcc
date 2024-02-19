@@ -33,27 +33,25 @@ class ServerJars:
     end=time()
     logger.debug(f'Queue_types time: {end-start}')
 
+  async def details(self, category, software, version=None):
+    getrequest=f'{self._apie}/fetchDetails/{category}/{software}/{"" if None else version}'
+    logger.info(getrequest)
+    fetch=await self.fetch(getrequest)
+
   async def fetch(self, url):
     response = await asyncio.to_thread(requests.get, url)
     r=response.json()
-    return r['response']
+    logger.debug(r)
+    if r['status'] == 'success':
+      return r['response']
+    else:
+      raise requests.exceptions.HTTPError('Failed to make request')
 
   async def jar_types(self, category=None):
     if category==None:
       return self.fetchTypes
     else:
       return self.fetchTypes[category]
-  async def jar_details(self, jartype, category, version=None):
-    if version is None:
-      getrequest = f'fetchDetails/{jartype}/{category}'
-    else:
-      getrequest = f'fetchDetails/{jartype}/{category}/{version}'
-
-  async def fetch_jar(self, category, software, version=None):
-    if version == None:
-      getrequest = f'{self._apie}/{category}/{software}'
-    else: 
-      getrequest = f'{self._apie}/{category}/{software}/{version}'
 
 debug_init(True, False)
 
@@ -64,7 +62,7 @@ async def main(jars:ServerJars):
     category = input('Category: ')
     try:
       cat=jars.fetchTypes[category]
-      logger.info(cat)
+      print(cat)
       break
     except KeyError:
       logger.warning('Incorrect Category Type!')
@@ -78,8 +76,11 @@ async def main(jars:ServerJars):
       break
     except KeyError:
       logger.warning('Incorrect Software Type!')
-      
-  version = input('Mc Version (Leave Blank for latest): ')
+
+  while True:
+    version = input('Mc Version (Leave Blank for latest): ')
+    detail=await jars.details(category, software, version)
+
   jars.input_data(category, software, version)
   print('done')
 
